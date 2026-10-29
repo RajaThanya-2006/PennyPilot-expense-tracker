@@ -4,10 +4,13 @@
 */
 
 const API_URL = (
-  import.meta.env.VITE_API_URL || "http://localhost:5000"
+  import.meta.env.VITE_API_URL || "https://pennypilot-expense-tracker.onrender.com"
 ).replace(/\/$/, "");
 
-const USE_API = import.meta.env.VITE_USE_API === "true";
+// API is ON by default. Set VITE_USE_API=false only if you want demo mode.
+const USE_API = import.meta.env.VITE_USE_API !== "false";
+
+console.log("USE_API:", USE_API, "API_URL:", API_URL);
 
 async function request(path, options = {}) {
   const response = await fetch(`${API_URL}${path}`, {
