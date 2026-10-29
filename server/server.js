@@ -14,9 +14,17 @@ const transactionRoutes = require("./routes/transactions");
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+const allowedOrigins = [
+  "https://penny-pilot-expense-tracker.vercel.app",
+  "http://localhost:5173",
+  process.env.CLIENT_URL && process.env.CLIENT_URL.replace(/\/$/, "")
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:5173"
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type"]
   })
 );
 
